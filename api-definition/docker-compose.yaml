@@ -1,0 +1,13 @@
+version: '3.5'
+
+services:
+ 
+ swagger-ui:
+  image: swaggerapi/swagger-editor
+  container_name: "swagger-editor"
+  ports:
+    - "80:8080"
+  volumes:
+    - ${PWD}://usr/share/nginx/html/api
+  environment:
+    URL: api/api.yaml
