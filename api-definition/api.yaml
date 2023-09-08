@@ -35,7 +35,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/game'
-          required: true
       responses:
         '200':
           description: Successful operation
@@ -80,7 +79,7 @@ paths:
     put:
       tags:
         - player
-      summary: login into game server
+      summary: join specific game 
       description: no need to sign in to use the game.
       operationId: joinGame
       parameters:
@@ -98,19 +97,32 @@ paths:
           schema:
             type: integer
             format: int32
-      requestBody:
-        description: Created player object
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/player'
       responses:
-        default:
+        '200':
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/player'
+        default:
+          description: exception
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+  /player:
+    get:
+      summary: get a list of players
+      tags:
+        - player
+      operationId: getAllplayers
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/players'
 components:
   schemas:
     player:
@@ -130,6 +142,10 @@ components:
           description: true if this player moves first
           format: boolean
           example: true
+    players:
+      type: array
+      items:
+        $ref: '#/components/schemas/player'
     game:
       required:
         - id
@@ -158,6 +174,16 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/game'
+    error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 500
+        message:
+          type: string
+          example: "internal error"
     ApiResponse:
       type: object
       properties:
@@ -171,29 +197,26 @@ components:
       xml:
         name: '##default'
   requestBodies:
-    Pet:
-      description: Pet object that needs to be added to the store
+    game:
+      description: game object that needs to be created
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Pet'
-        application/xml:
-          schema:
-            $ref: '#/components/schemas/Pet'
+            $ref: '#/components/schemas/game'
     UserArray:
-      description: List of user object
+      description: List of games
       content:
         application/json:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/games'
   securitySchemes:
     starrealms_auth:
       type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          authorizationUrl: https://localhost:4040/api/oauth/authorize
           scopes:
             write:games: modify games in your account
             read:games: read your games
