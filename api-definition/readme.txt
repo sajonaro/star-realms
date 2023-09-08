@@ -1,9 +1,3 @@
-use following commands to launch swagger-editor to work with api definition
-
-docker-compose up -d
-(docker-compose down)
-
-
 
 description:
 
