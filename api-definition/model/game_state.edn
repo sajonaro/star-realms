@@ -1,0 +1,17 @@
+
+;;; game state
+{ :id nil
+  :players []
+  :explorers_left nil
+  :scrap_pile []
+  :trade_row []
+  ;;; created ongoing ended
+  :status nil }
+
+;;; player state
+{ :id nil
+  :health nil
+  :discard_pile []
+  :hand []
+  :deck []
+  :set_bases []}
