@@ -7,5 +7,5 @@
 
  { :name :explorer
    :cost 2
-   :rules [{trade: 2}]
+   :rules [{:trade 2}]
    :dispose_rule {:combat 2}}  
