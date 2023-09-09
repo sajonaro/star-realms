@@ -1,0 +1,71 @@
+;;; red aka machine cult faction
+
+
+{ :name :trade-bot
+  :cost 1
+  :faction :red
+  :rules [ [{:trade 1} {:scrap_in_hand 1 }] [{:trade 1} {:scrap_in_discard_pile 1}] ]
+  :allied_rules [{:combat 2}]}
+
+{ :name :missle-bot
+  :cost 2
+  :faction :red
+  :rules [[{:combat 2} {:scrap_in_hand 1 }] [{:combat 2} {:scrap_in_discard_pile 1}]]
+  :allied_rules [{:combat 2}]}
+
+{ :name :supply-bot
+  :cost 3
+  :faction :red
+  :rules [[{:trade 2} {:scrap_in_hand 1 }] [{:trade 2} {:scrap_in_discard_pile 1}]]
+  :allied_rules [{:combat 2}]}
+
+{ :name :patrol-mech
+  :cost 4
+  :faction :red
+  :rules [{:trade 3} {:combat 5}]
+  :allied_rules [{:scrap_in_hand 1 } {:scrap_in_discard_pile 1}]}
+
+{ :name :stealth-needle
+  :cost 4
+  :faction :red
+  :rules [{:imitate_any_ship}]}
+
+{ :name :battle-mech
+  :cost 5
+  :faction :red
+  :rules [[{:combat 4} {:scrap_in_hand 1 }] [{:combat 4} {:scrap_in_discard_pile 1}]]
+  :allied_rules [{:draw 1 }]}
+  
+{ :name :missle-mech
+  :cost 6
+  :faction :red
+  :rules [[{:combat 6} {:destroy_base 1}]]
+  :allied_rules [{:draw 1 }]}
+
+{ :name :battle-station
+  :cost 3
+  :faction :red
+  :rules [{:outpost 5}]
+  :dispose_rule {:combat 5}}
+
+{ :name :mech-world
+  :cost 5
+  :faction [:green :yellow :red :blue]
+  :rules [{:outpost 6}]}
+
+{ :name :junkyard
+  :cost 6
+  :faction :red
+  :rules [[{:outpost 5} {:scrap_in_hand 1 }] [{:outpost 5} {:scrap_in_discard_pile 1 }]]}
+
+{ :name :machine-base
+  :cost 7
+  :faction :red
+  :rules [[{:outpost 6} [{:draw 1 } {:scrap_in_hand 1}]]]}
+
+{ :name :brain-world
+  :cost 8
+  :faction :red
+  :rules [[{:outpost 6} [{:scrap_in_discard_pile 2} {:draw 2}] [{:scrap_in_hand 2} {:draw 2}]]]}
+
+

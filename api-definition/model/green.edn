@@ -1,0 +1,71 @@
+;;; green aka blob faction
+
+{ :name :blob-fighter
+  :cost 1
+  :faction :green
+  :rules [{:combat 3}]
+  :allied_rules [{:draw 1 }]}
+
+
+{ :name :trade-pod
+  :cost 2
+  :faction :green
+  :rules [{:trade 3}]
+  :allied_rules [{:combat 2}]}
+
+{ :name :battle-pod
+  :cost 2
+  :faction :green
+  :rules [[{:combat 4} {:scrap_in_trade_row 1}]]
+  :allied_rules [{:combat 2}]}
+
+
+{ :name :ram
+  :cost 3
+  :faction :green
+  :rules [{:combat 5}]
+  :allied_rules [{:combat 2 }]
+  :dispose_rule [{:trade 3}]}
+
+{ :name :blob-destroyer
+  :cost 4
+  :faction :green
+  :rules [{:combat 6}]
+  :allied_rules [[{:destroy_base 1} {:scrap_in_trade_row 1}]]}
+
+{ :name :blob-carrier
+  :cost 6
+  :faction :green
+  :rules [{:combat 7}]
+  :allied_rules [[{:take_in_trade_row 1} {:put_on_top_of_deck 1}]]}
+
+{ :name :battle-blob
+  :cost 6
+  :faction :green
+  :rules [{:combat 8}]
+  :allied_rules [{:draw 1}]
+  :dispose_rule [{:combat 4}]}
+
+{ :name :mothership
+  :cost 7
+  :faction :green
+  :rules [[{:combat 6} {:draw 1}]]
+  :allied_rules [{:draw 1}]}
+
+{ :name :blob-wheel
+  :cost 3
+  :faction :green
+  :rules [[{:combat 1} {:health 5}]]
+  :dispose_rule [{:trade 3}]}
+
+{ :name :hive
+  :cost 5
+  :faction :green
+  :rules [[{:combat 3} {:health 5}]]
+  :allied_rules [{:draw 1}]}    
+
+{ :name :hive
+  :cost 8
+  :faction :green
+  ;;; draw as many cards as there are blobs in hand
+  :rules [[{:combat 5} {:health 7}] [ {:draw (fn[hand](count (filter (fn[el](= :green (:faction el))) hand)))} {:health 7}]]}    
