@@ -18,7 +18,7 @@ services:
     networks:
       - starrealms_net
     ports:
-      - 4040:4040 
+      - 4040:3000 
     environment:
       DB_SERVER: POSTGRES_DB:5432  
 
