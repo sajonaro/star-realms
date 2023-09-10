@@ -14,10 +14,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: gameserver
     networks:
       - starrealms_net
     ports:
       - 4040:4040 
+    environment:
+      DB_SERVER: POSTGRES_DB:5432  
 
   database:
     image: postgres:alpine
