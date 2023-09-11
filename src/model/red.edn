@@ -28,7 +28,7 @@
 { :name :stealth-needle
   :cost 4
   :faction :red
-  :rules [{:imitate_any_ship}]}
+  :rules [{:imitate_any_ship 1}]}
 
 { :name :battle-mech
   :cost 5
