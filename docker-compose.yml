@@ -5,7 +5,7 @@ volumes:
     driver: local
 
 networks:
-  starralms_net:
+  starrealms_net:
     driver: bridge
 
 services:
@@ -15,6 +15,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: gameserver
+    restart: always
     networks:
       - starrealms_net
     ports:
@@ -27,7 +28,7 @@ services:
     container_name: POSTGRES_DB
     restart: always
     networks: 
-      - starralms_net
+      - starrealms_net
     ports:
       - 5432:5432
     environment:
@@ -39,7 +40,7 @@ services:
     image: adminer
     container_name: adminer
     networks: 
-      - starralms_net  
+      - starrealms_net  
     restart: always
     ports:
       - 8080:8080

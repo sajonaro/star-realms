@@ -1,8 +1,28 @@
-FROM openjdk:11
+#Build stage
+FROM clojure:temurin-17-alpine AS stage--builder
 
-WORKDIR /
+RUN mkdir /build
+COPY . /build
+WORKDIR /build
 
-COPY target/star-realms.jar star-realms.jar
-EXPOSE 3000
+RUN clojure -T:build uber
 
-CMD java -jar star-realms.jar
+
+#Inherit GraalVM image
+FROM ghcr.io/graalvm/graalvm-ce:22 AS stage--graal
+RUN gu install native-image
+RUN mkdir -p /stuff 
+WORKDIR /stuff
+COPY --from=stage--builder /build/target/. /stuff
+
+RUN native-image \
+        --verbose \
+        --report-unsupported-elements-at-runtime \
+        --initialize-at-build-time \
+        --no-fallback \
+        -jar ./starrealms.jar \
+        -H:Name=./gameserver  \
+        -H:+ReportExceptionStackTraces
+       
+ENTRYPOINT ["./gameserver"]
+

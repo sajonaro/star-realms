@@ -7,6 +7,6 @@
 
 
  :aliases {;; Run with clj -T:build function-in-build
-           :build {:deps {io.github.clojure/tools.build {:git/tag "v0.9.5" :git/sha "24f2894"}}
+           :build {:deps {co.insilica/tools.build {:mvn/version "0.8.3.1"}}
                    :ns-default build}}}
 
