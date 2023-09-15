@@ -24,7 +24,9 @@ services:
       DB_SERVER: POSTGRES_DB:5432  
 
   database:
-    image: postgres:alpine
+    build: 
+      context: ./src/db
+      dockerfile: Dockerfile
     container_name: POSTGRES_DB
     restart: always
     networks: 
