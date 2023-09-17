@@ -16,7 +16,7 @@
   - name: Remove gameserver image
     community.docker.docker_image:
       state: absent
-      name: gameserver
+      name: gameserver:latest
       force_absent: true
 
   - name: Git checkout
@@ -41,7 +41,8 @@
   - name: deploy gameserver container
     community.docker.docker_container:
       name: gameserver
-      image: gameserver
+      image: gameserver:latest
+      state: started
       ports:
         - "4040:3000"
       networks:
