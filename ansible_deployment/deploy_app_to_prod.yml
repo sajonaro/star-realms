@@ -1,23 +1,30 @@
 --- 
-- name: Build game server locally
-  hosts: localhost
-  tasks:
-
-
-
 - name: deploy starrealms game server and db
   hosts: all
+
   tasks:
+
   - name: create network
     community.docker.docker_network:
       name: starrealms-net
+  
+  - name: Stop gameserver container
+    community.docker.docker_container:
+      name: gameserver
+      state: stopped    
+
+  - name: Remove gameserver image
+    community.docker.docker_image:
+      state: absent
+      name: gameserver
+      force_absent: true
 
   - name: Git checkout
     ansible.builtin.git:
       repo: 'https://github.com/sajonaro/star-realms.git'
       dest: /tmp/checkout
   
-  - name: Build game server image
+  - name: Build gameserver image
     docker_image:
       name: gameserver
       build:
@@ -31,7 +38,7 @@
       path: /tmp/checkout
       state: absent
 
-  - name: deploy gameserver
+  - name: deploy gameserver container
     community.docker.docker_container:
       name: gameserver
       image: gameserver
