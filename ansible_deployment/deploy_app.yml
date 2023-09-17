@@ -1,9 +1,13 @@
----
-- name: deploy starrealms game server and db
-  hosts: all
-  
+--- 
+- name: Build game server locally
+  hosts: localhost
   tasks:
 
+
+
+- name: deploy starrealms game server and db
+  hosts: all
+  tasks:
   - name: create network
     community.docker.docker_network:
       name: starrealms-net
@@ -12,13 +16,15 @@
     ansible.builtin.git:
       repo: 'https://github.com/sajonaro/star-realms.git'
       dest: /tmp/checkout
-
-  - docker_image:
+  
+  - name: Build game server image
+    docker_image:
       name: gameserver
-      source: build
       build:
         path: /tmp/checkout
-        pull: false
+        dockerfile: ./Dockerfile
+      source: build
+      state: present  
 
   - name: delete code
     file:
