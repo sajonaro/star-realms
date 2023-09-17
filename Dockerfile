@@ -23,6 +23,8 @@ RUN native-image \
         -jar ./starrealms.jar \
         -H:Name=./gameserver  \
         -H:+ReportExceptionStackTraces
+
+EXPOSE 3000        
        
 ENTRYPOINT ["./gameserver"]
 

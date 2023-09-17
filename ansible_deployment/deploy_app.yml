@@ -17,10 +17,23 @@
       name: gameserver
       source: build
       build:
-        path: /tmp/checkout/Dockerfile
+        path: /tmp/checkout
         pull: false
 
   - name: delete code
     file:
       path: /tmp/checkout
-      state: absent      
+      state: absent
+
+  - name: deploy gameserver
+    community.docker.docker_container:
+      name: gameserver
+      image: gameserver
+      ports:
+        - "4040:3000"
+      networks:
+        - name: starrealms-net          
+      env:
+        DB_SERVER: POSTGRES_DB:5432 
+      restart_policy: always
+        
