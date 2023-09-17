@@ -1,0 +1,2 @@
+#restart stuck portainer
+ansible all -a "sudo docker restart portainer"

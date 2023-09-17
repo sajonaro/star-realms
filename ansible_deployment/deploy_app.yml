@@ -1,34 +1,26 @@
 ---
-- name: Update web servers
-  hosts: webservers
-  remote_user: root
-
+- name: deploy starrealms game server and db
+  hosts: all
+  
   tasks:
+
+  - name: create network
+    community.docker.docker_network:
+      name: starrealms-net
 
   - name: Git checkout
     ansible.builtin.git:
-    repo: 'https://foosball.example.org/path/to/repo.git'
-    dest: /srv/checkout
-    version: release-0.22
+      repo: 'https://github.com/sajonaro/star-realms.git'
+      dest: /tmp/checkout
 
+  - docker_image:
+      name: gameserver
+      source: build
+      build:
+        path: /tmp/checkout/Dockerfile
+        pull: false
 
-  - name: Ensure apache is at the latest version
-    ansible.builtin.yum:
-      name: httpd
-      state: latest
-
-  - name: Write the apache config file
-    ansible.builtin.template:
-      src: /srv/httpd.j2
-      dest: /etc/httpd.conf
-
-  tasks:
-  - name: Ensure postgresql is at the latest version
-    ansible.builtin.yum:
-      name: postgresql
-      state: latest
-
-  - name: Ensure that postgresql is started
-    ansible.builtin.service:
-      name: postgresql
-      state: started
+  - name: delete code
+    file:
+      path: /tmp/checkout
+      state: absent      

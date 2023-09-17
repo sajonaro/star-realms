@@ -3,9 +3,11 @@
 192.168.0.16 
 
 [dev:vars]
-ansible_connection=ssh
 ansible_user=sk
-ansible_ssh_private_key_file =~/.ssh/DEV_SSH
+ansible_password=123
+ansible_become=true
+ansible_become_method=sudo
+ansible_become_password=123
 
 [prod]
 45.153.184.129 
