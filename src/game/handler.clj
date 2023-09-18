@@ -21,7 +21,7 @@
     {:join? false
      :port 3000})))
 
-(defn -main []
+(defn -main [& args]
   (start-jetty!))
 
 (defn stop-jetty! []
