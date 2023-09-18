@@ -12,7 +12,7 @@ services:
 
   starrealms:
     build:
-      context: .
+      context: ../../
       dockerfile: Dockerfile
     container_name: gameserver
     restart: always
@@ -25,7 +25,7 @@ services:
 
   database:
     build: 
-      context: ./src/db
+      context: ../../src/db
       dockerfile: Dockerfile
     container_name: POSTGRES_DB
     restart: always
