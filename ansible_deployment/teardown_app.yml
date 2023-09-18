@@ -14,6 +14,11 @@
       name: gameserver
       state: stopped    
 
+  - name: remove container
+    docker_container:
+    name: gameserver
+    state: absent    
+
   - name: remove gameserver image
     community.docker.docker_image:
       state: absent

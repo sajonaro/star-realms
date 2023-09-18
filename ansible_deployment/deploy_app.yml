@@ -8,17 +8,6 @@
     community.docker.docker_network:
       name: starrealms-net
   
-  - name: Stop gameserver container
-    community.docker.docker_container:
-      name: gameserver
-      state: stopped    
-
-  - name: Remove gameserver image
-    community.docker.docker_image:
-      state: absent
-      name: gameserver:latest
-      force_absent: true
-
   - name: Git checkout
     ansible.builtin.git:
       repo: 'https://github.com/sajonaro/star-realms.git'
@@ -32,11 +21,6 @@
         dockerfile: ./Dockerfile
       source: build
       state: present  
-
-  - name: delete code
-    file:
-      path: /tmp/checkout
-      state: absent
 
   - name: deploy gameserver container
     docker_container:
