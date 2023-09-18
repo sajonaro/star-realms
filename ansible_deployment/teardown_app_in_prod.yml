@@ -1,0 +1,26 @@
+--- 
+- name: deploy starrealms game server and db
+  hosts: all
+
+  tasks:
+
+  - name: destroy network
+    community.docker.docker_network:
+      name: starrealms-net
+      state: absent
+  
+  - name: stop gameserver container
+    community.docker.docker_container:
+      name: gameserver
+      state: stopped    
+
+  - name: remove gameserver image
+    community.docker.docker_image:
+      state: absent
+      name: gameserver:latest
+      force_absent: true
+
+  - name: delete code
+    file:
+      path: /tmp/checkout
+      state: absent

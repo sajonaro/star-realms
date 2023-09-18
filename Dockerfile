@@ -24,7 +24,7 @@ RUN native-image \
         -H:Name=./gameserver  \
         -H:+ReportExceptionStackTraces
 
-EXPOSE 3000        
+EXPOSE 3000/tcp    
        
 ENTRYPOINT ["./gameserver"]
 

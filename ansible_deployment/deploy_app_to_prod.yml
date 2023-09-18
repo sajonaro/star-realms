@@ -39,15 +39,16 @@
       state: absent
 
   - name: deploy gameserver container
-    community.docker.docker_container:
+    docker_container:
       name: gameserver
       image: gameserver:latest
       state: started
+      recreate: yes
+      networks:
+        - name: starrealms-net   
+      exposed_ports:
+        - 3000  
       ports:
         - "4040:3000"
-      networks:
-        - name: starrealms-net          
       env:
-        DB_SERVER: POSTGRES_DB:5432 
-      restart_policy: always
-        
+        DB_SERVER: POSTGRES_DB:5432     

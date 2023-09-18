@@ -1,0 +1,25 @@
+--- 
+- name: deploy starrealms game server and db
+  hosts: all
+
+  tasks:
+
+  - name: Stop gameserver container
+    community.docker.docker_container:
+      name: gameserver:latest
+      state: absent    
+
+  - name: deploy gameserver container
+    docker_container:
+      name: gameserver
+      image: gameserver:latest
+      state: started
+      recreate: yes
+      networks:
+        - name: starrealms-net   
+      exposed_ports:
+        - 3000  
+      ports:
+        - "127.0.0.1:4040:3000/tcp"
+      env:
+        DB_SERVER: POSTGRES_DB:5432     
