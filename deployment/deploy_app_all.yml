@@ -36,3 +36,29 @@
         - "4040:3000"
       env:
         DB_SERVER: POSTGRES_DB:5432     
+
+  - name: Build gameserver database
+    docker_image:
+      name: db
+      build:
+        path: /tmp/checkout/src/db
+        dockerfile: ./Dockerfile
+      source: build
+      state: present     
+
+  - name: deploy gameserver database
+    docker_container:
+      name: POSTGRES_DB
+      image: db:latest
+      state: started
+      recreate: yes
+      networks:
+        - name: starrealms-net   
+      exposed_ports:
+        - 5432  
+      ports:
+        - "5432:5432"
+      env:
+        POSTGRES_DB: game_state
+        POSTGRES_USER: usr
+        POSTGRES_PASSWORD: pwd     

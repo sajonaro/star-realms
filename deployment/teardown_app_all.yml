@@ -25,6 +25,17 @@
       name: gameserver:latest
       force_absent: true
 
+  - name: remove database container
+    docker_container:
+      name: POSTGRES_DB
+      state: absent    
+
+  - name: remove gameserver image
+    community.docker.docker_image:
+      state: absent
+      name: db:latest
+      force_absent: true
+
   - name: delete code
     file:
       path: /tmp/checkout

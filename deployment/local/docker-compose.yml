@@ -37,6 +37,8 @@ services:
       POSTGRES_DB: game_state
       POSTGRES_USER: usr
       POSTGRES_PASSWORD: pwd
+    volumes:
+      - ../../src/db/postgres-data:/var/lib/postgresql/data  
 
   adminer:
     image: adminer
