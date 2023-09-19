@@ -18,8 +18,6 @@ CREATE TABLE products (
 );
 
 
-IF NOT EXISTS CREATE USER starrealms_app WITH PASSWORD 'pwd';
-
 GRANT SELECT,INSERT,UPDATE,DELETE  ON  categories          TO starrealms_app;
 GRANT SELECT,USAGE                 ON  categories_id_seq   TO starrealms_app;
 GRANT SELECT,INSERT,UPDATE,DELETE  ON  products            TO starrealms_app;

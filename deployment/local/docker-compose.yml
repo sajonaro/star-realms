@@ -22,6 +22,8 @@ services:
       - 4040:3000 
     environment:
       DB_SERVER: POSTGRES_DB:5432  
+      DB_USER: starrealms_app
+      DB_PASSWORD: pwd
 
   database:
     build: 
@@ -35,7 +37,7 @@ services:
       - 5432:5432
     environment:
       POSTGRES_DB: game_state
-      POSTGRES_USER: usr
+      POSTGRES_USER: starrealms_app
       POSTGRES_PASSWORD: pwd
     volumes:
       - ../../src/db/postgres-data:/var/lib/postgresql/data  
