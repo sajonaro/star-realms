@@ -27,7 +27,7 @@ services:
 
   database:
     build: 
-      context: ../../src/db
+      context: ../../src/game/common/db/
       dockerfile: Dockerfile
     container_name: POSTGRES_DB
     restart: always
@@ -40,7 +40,7 @@ services:
       POSTGRES_USER: starrealms_app
       POSTGRES_PASSWORD: pwd
     volumes:
-      - ../../src/db/postgres-data:/var/lib/postgresql/data  
+      - ../../src/game/common/db/postgres-data:/var/lib/postgresql/data  
 
   adminer:
     image: adminer
