@@ -5,22 +5,28 @@
            [muuntaja.middleware :as muuntaja]
            [compojure.core :as c]
            [clojure.pprint :as pp]
-           [game.landingpage.view :as lp]))
+           [game.landingpage.view :as lp]
+           [game.control-game.view :as cg]))
 
 (defonce server (atom nil))
 
+#dbg
 (c/defroutes routes
- (c/GET "/" [_]
+  (c/POST "/" [username]
    {:status 200
     :headers {"Content-Type" "text/html"}
-    :body (lp/get-view)})
- (c/GET "/:foo" [foo]
-   {:status 200
-    :body (str "you asked for " foo)})
- (c/POST "/api" [:as req]
-   (pp/pprint (:body-params req))
-   {:status 200
-    :body {:hello 123}}))
+    :body (cg/get-view)})
+  (c/GET "/" [_]
+    {:status 200
+     :headers {"Content-Type" "text/html"}
+     :body (lp/get-view)})
+  (c/GET "/:foo" [foo]
+    {:status 200
+     :body (str "you asked for " foo)})
+  (c/POST "/api" [:as req]
+    (pp/pprint (:body-params req))
+    {:status 200
+     :body {:hello 123}}))
 
 (defn apply-routes-handler [req]
   (routes req))
@@ -35,6 +41,11 @@
     {:join? false
      :port port})))
 
+#dbg
 (defn -main [] 
   (let [port (Integer. (or (System/getenv "PORT") "3000"))]
    (start-jetty! port)))
+
+
+
+(-main)

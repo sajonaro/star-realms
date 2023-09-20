@@ -12,7 +12,13 @@
            :build {:deps {co.insilica/tools.build {:mvn/version "0.8.3.1"}}
                    :ns-default build}
            ;; Run with clj -M:run-dev to launch the app locally 
-           :run-dev {:main-opts ["-m" "game.handler"]}}}
+           :run-dev {:main-opts ["-m" "game.handler"]}
+           ;;use this alias while Jack in
+           :calva {:extra-deps {nrepl/nrepl {:mvn/version "1.0.0"}
+                                cider/cider-nrepl {:mvn/version,"0.28.5"}
+                                cider/piggieback {:mvn/version "0.4.2"}}
+                   :jvm-opts ["-Dtrace" "-Dguardrails.enabled=true"]}}}
+
 
 
 
