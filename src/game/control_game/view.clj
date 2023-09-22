@@ -2,12 +2,12 @@
    (:require [hiccup2.core :as h]
             [hiccup.form :as form]))
 
-(defn -home-view []
+(defn -home-view [username]
   [:html
    [:body
-    [:h3 "you can create games!"]]])
+    [:h3 (format "welcome, %S " username)]]])
 
 
-
-(defn get-view []
-  (str (h/html (-home-view))))
+#dbg
+(defn get-view [req]
+  (str (h/html (-home-view req))))

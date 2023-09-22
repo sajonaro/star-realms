@@ -12,14 +12,11 @@
 
 #dbg
 (c/defroutes routes
-  (c/POST "/" [username]
+  (c/POST "/" [:as req]
    {:status 200
     :headers {"Content-Type" "text/html"}
-    :body (cg/get-view)})
-  (c/GET "/" [_]
-    {:status 200
-     :headers {"Content-Type" "text/html"}
-     :body (lp/get-view)})
+    :body (cg/get-view (:name (:params req)))})
+  (c/GET "/" [_] (lp/get-view))
   (c/GET "/:foo" [foo]
     {:status 200
      :body (str "you asked for " foo)})
@@ -49,3 +46,5 @@
 
 
 (-main)
+
+
