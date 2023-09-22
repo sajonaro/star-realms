@@ -1,13 +1,16 @@
 (ns game.control-game.view
-   (:require [hiccup2.core :as h]
-            [hiccup.form :as form]))
+   (:require [game.common.hiccup-templating.views.layout :as cl]
+             [hiccup.element :refer [link-to]] ))
 
-(defn -home-view [username]
-  [:html
-   [:body
-    [:h3 (format "welcome, %S " username)]]])
+(defn -view [username]
+  [:div {:class "container"}
+   [:h3 (format "welcome, %S " username)]
+    [:nav
+     [:ul
+      [:li (link-to {:class "btn btn-primary"} "/" "create new game")]
+      [:li (link-to {:class "btn btn-primary"} "/" "log out")]]]])
 
 
 #dbg
-(defn get-view [req]
-  (str (h/html (-home-view req))))
+(defn get-view [username]
+  (cl/application "starrealms: game management" (-view username)))

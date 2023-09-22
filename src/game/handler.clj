@@ -3,7 +3,7 @@
  (:require [ring.adapter.jetty :as ring]
            [ring.middleware.defaults :as ring-def]
            [muuntaja.middleware :as muuntaja]
-           [compojure.core :as c]
+           [compojure.core :refer [GET POST defroutes]]
            [clojure.pprint :as pp]
            [game.landingpage.view :as lp]
            [game.control-game.view :as cg]))
@@ -11,16 +11,13 @@
 (defonce server (atom nil))
 
 #dbg
-(c/defroutes routes
-  (c/POST "/" [:as req]
-   {:status 200
-    :headers {"Content-Type" "text/html"}
-    :body (cg/get-view (:name (:params req)))})
-  (c/GET "/" [_] (lp/get-view))
-  (c/GET "/:foo" [foo]
+(defroutes routes
+  (GET "/" [] (lp/get-view))
+  (POST "/" [:as req] (cg/get-view (:name (:params req))))
+  (GET "/:foo" [foo]
     {:status 200
      :body (str "you asked for " foo)})
-  (c/POST "/api" [:as req]
+  (POST "/api" [:as req]
     (pp/pprint (:body-params req))
     {:status 200
      :body {:hello 123}}))
