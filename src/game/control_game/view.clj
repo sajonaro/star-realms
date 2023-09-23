@@ -1,5 +1,5 @@
 (ns game.control-game.view
-   (:require [game.common.hiccup-templating.views.layout :as cl]
+   (:require [game.common.layout :as cl]
              [hiccup.element :refer [link-to]] ))
 
 (defn -view [username]
@@ -13,4 +13,4 @@
 
 #dbg
 (defn get-view [username]
-  (cl/application "starrealms: game management" (-view username)))
+  (cl/application "starrealms: game management" (-view username) nil))
