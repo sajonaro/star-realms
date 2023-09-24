@@ -3,14 +3,10 @@
              [hiccup.element :refer [link-to]] ))
 
 (defn -view [username]
-  [:div {:class "container"}
-   [:h3 (format "welcome, %S " username)]
-    [:nav
-     [:ul
-      [:li (link-to {:class "btn btn-primary"} "/" "create new game")]
-      [:li (link-to {:class "btn btn-primary"} "/" "log out")]]]])
+  [:div 
+   [:h3 (format "player, %S " username)]
+   [:div (link-to {:class "link-button"} "/" "log out")]])
 
 
-#dbg
 (defn get-view [username]
   (cl/application "starrealms: game management" (-view username) nil))

@@ -2,17 +2,19 @@
 (:gen-class)
  (:require [ring.adapter.jetty :as ring]
            [ring.middleware.defaults :as ring-def]
-           [muuntaja.middleware :as muuntaja]
+           [ring.middleware.resource :refer [wrap-resource]]
+           [muuntaja.middleware :refer [wrap-format]]
+           [hiccup.middleware :refer [wrap-base-url]]
            [compojure.core :refer [GET POST defroutes]]
+           [compojure.route :as route]
            [clojure.pprint :as pp]
            [game.landingpage.view :as lp]
            [game.control-game.view :as cg]))
 
 (defonce server (atom nil))
 
-#dbg
 (defroutes routes
-  (GET "/" [] (lp/get-view))
+  (GET "/" [_] (lp/get-view))
   (POST "/" [:as req] (cg/get-view (:name (:params req))))
   (GET "/:foo" [foo]
     {:status 200
@@ -20,28 +22,26 @@
   (POST "/api" [:as req]
     (pp/pprint (:body-params req))
     {:status 200
-     :body {:hello 123}}))
+     :body {:hello 123}})
+  (route/resources "/"))
 
-(defn apply-routes-handler [req]
-  (routes req))
+
+;;; disable CSRF protection 
+(def config (assoc-in ring-def/site-defaults [:security :anti-forgery] false)) 
+
+
+ (def app  (-> routes
+               (wrap-resource "public")
+               (wrap-resource "")
+               (wrap-base-url)
+               (wrap-format)
+               (ring-def/wrap-defaults config)))
+
 
 (defn start-jetty! [port]
   (reset! server
-   (ring/run-jetty
-     (ring-def/wrap-defaults
-       (muuntaja/wrap-format
-         apply-routes-handler)
-     ring-def/api-defaults) 
-    {:join? false
-     :port port})))
+   (ring/run-jetty #'app {:join? false :port port})))
 
-#dbg
 (defn -main [] 
   (let [port (Integer. (or (System/getenv "PORT") "3000"))]
    (start-jetty! port)))
-
-
-
-(-main)
-
-

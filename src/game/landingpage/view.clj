@@ -4,9 +4,9 @@
 
 
 (defn -input-name-view []
-  [:div  (hf/form-to [:post "/"]
-               [:p {:cclass "stack"} "input your name to connect"]
-               (hf/text-field {:class "stack"} "name" )
+  [:div {:class "horizontal-stack"}  (hf/form-to [:post "/"]
+               [:p "input your name to connect"]
+               (hf/text-field  "name" )
                (hf/submit-button "OK"))])
 
 
