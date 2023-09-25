@@ -3,10 +3,10 @@
              [hiccup.element :refer [link-to]] ))
 
 (defn -view [username]
-  [:div 
-   [:h3 (format "player, %S " username)]
-   [:div (link-to {:class "link-button"} "/" "log out")]])
+  [:span
+   [:span {:class "bold-gold"} (format "player: %S " username)]
+   [:span (link-to {:class "sign-out-button"} "/" "log out")]])
 
 
 (defn get-view [username]
-  (cl/application "starrealms: game management" (-view username) nil))
+  (cl/application "starrealms: game management" (-view username) nil nil nil nil))

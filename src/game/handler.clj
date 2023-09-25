@@ -2,11 +2,9 @@
 (:gen-class)
  (:require [ring.adapter.jetty :as ring]
            [ring.middleware.defaults :as ring-def]
-           [ring.middleware.resource :refer [wrap-resource]]
+           [ring.middleware.file :refer [wrap-file]]
            [muuntaja.middleware :refer [wrap-format]]
-           [hiccup.middleware :refer [wrap-base-url]]
            [compojure.core :refer [GET POST defroutes]]
-           [compojure.route :as route]
            [clojure.pprint :as pp]
            [game.landingpage.view :as lp]
            [game.control-game.view :as cg]))
@@ -22,8 +20,7 @@
   (POST "/api" [:as req]
     (pp/pprint (:body-params req))
     {:status 200
-     :body {:hello 123}})
-  (route/resources "/"))
+     :body {:hello 123}}))
 
 
 ;;; disable CSRF protection 
@@ -31,9 +28,7 @@
 
 
  (def app  (-> routes
-               (wrap-resource "public")
-               (wrap-resource "")
-               (wrap-base-url)
+               (wrap-file "resources/public")
                (wrap-format)
                (ring-def/wrap-defaults config)))
 

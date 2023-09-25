@@ -4,11 +4,11 @@
 
 
 (defn -input-name-view []
-  [:div {:class "horizontal-stack"}  (hf/form-to [:post "/"]
-               [:p "input your name to connect"]
-               (hf/text-field  "name" )
-               (hf/submit-button "OK"))])
+  (hf/form-to [:post "/"]
+              [:p {:class "screamimg-yellow-title"} "input your name to connect"]
+              (hf/text-field  "name")
+              (hf/submit-button "OK")))
 
 
 (defn get-view []
-  (cl/application "starrealms" (-input-name-view) nil))
+  (cl/application "starrealms" nil nil  (-input-name-view) nil nil))
