@@ -4,16 +4,16 @@
            [ring.middleware.defaults :as ring-def]
            [ring.middleware.file :refer [wrap-file]]
            [muuntaja.middleware :refer [wrap-format]]
-           [compojure.core :refer [GET POST defroutes]]
+           [compojure.core :refer [GET POST defroutes ]]
            [clojure.pprint :as pp]
-           [game.landingpage.view :as lp]
-           [game.control-game.view :as cg]))
+           [game.views.ui :as ui ]
+           [game.common.html-template :refer [htmlapp]]))
 
 (defonce server (atom nil))
 
 (defroutes routes
-  (GET "/" [_] (lp/get-view))
-  (POST "/" [:as req] (cg/get-view (:name (:params req))))
+  (GET "/" [] (htmlapp (ui/login)))
+  (POST "/" [:as req] (htmlapp (ui/control-game (:name (:params req))) ))
   (GET "/:foo" [foo]
     {:status 200
      :body (str "you asked for " foo)})
