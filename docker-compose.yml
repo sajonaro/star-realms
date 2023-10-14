@@ -4,35 +4,39 @@ volumes:
   db:
     driver: local
 
-networks:
-  starrealms_net:
-    driver: bridge
-
 services:
 
-  starrealms:
+  ui:
     build:
-      context: ../../
+      context: ./ui
+      dockerfile: Dockerfile
+    container_name: ui
+    restart: always
+    ports:
+      - 4040:80 
+    environment:
+      PUBLIC_URL: http://localhost/
+
+  api:
+    build:
+      context: ./api
       dockerfile: Dockerfile
     container_name: gameserver
     restart: always
-    networks:
-      - starrealms_net
     ports:
-      - 4040:3000 
+      - 5000:80 
     environment:
+      PORT: 80
       DB_SERVER: POSTGRES_DB:5432  
       DB_USER: starrealms_app
       DB_PASSWORD: pwd
 
   database:
     build: 
-      context: ../../src/game/common/db/
+      context: ./database
       dockerfile: Dockerfile
     container_name: POSTGRES_DB
     restart: always
-    networks: 
-      - starrealms_net
     ports:
       - 5432:5432
     environment:
@@ -40,15 +44,24 @@ services:
       POSTGRES_USER: starrealms_app
       POSTGRES_PASSWORD: pwd
     volumes:
-      - ../../src/game/common/db/postgres-data:/var/lib/postgresql/data  
+      - db:/var/lib/postgresql/data/ 
 
   adminer:
     image: adminer
     container_name: adminer
-    networks: 
-      - starrealms_net  
     restart: always
     ports:
       - 8080:8080
     environment:
       ADMINER_DEFAULT_SERVER: POSTGRES_DB:5432  
+
+  proxy:
+    build: 
+      context: ./proxy
+      dockerfile: Dockerfile
+    container_name: proxy
+    depends_on:
+        - ui
+        - api
+    ports:
+      - 80:80    

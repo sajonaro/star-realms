@@ -10,7 +10,5 @@ WORKDIR /build
 
 RUN clojure -T:build uber
 
-EXPOSE 3000
-
 ENTRYPOINT java -cp target/starrealms.jar clojure.main -m game.handler
 

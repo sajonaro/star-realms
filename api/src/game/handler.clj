@@ -2,18 +2,16 @@
 (:gen-class)
  (:require [ring.adapter.jetty :as ring]
            [ring.middleware.defaults :as ring-def]
-           [ring.middleware.file :refer [wrap-file]]
            [muuntaja.middleware :refer [wrap-format]]
            [compojure.core :refer [GET POST defroutes ]]
-           [clojure.pprint :as pp]
-           [game.views.ui :as ui ]
-           [game.common.html-template :refer [htmlapp]]))
+           [clojure.pprint :as pp]))
 
 (defonce server (atom nil))
 
 (defroutes routes
-  (GET "/" [] (htmlapp (ui/login)))
-  (POST "/" [:as req] (htmlapp (ui/control-game (:name (:params req))) ))
+  (POST "/connect/player_name" [:as req] 
+    {:status 200
+     :body {:hello (:name (:params req))}})
   (GET "/:foo" [foo]
     {:status 200
      :body (str "you asked for " foo)})
@@ -28,7 +26,6 @@
 
 
  (def app  (-> routes
-               (wrap-file "resources/public")
                (wrap-format)
                (ring-def/wrap-defaults config)))
 
@@ -38,5 +35,5 @@
    (ring/run-jetty #'app {:join? false :port port})))
 
 (defn -main [] 
-  (let [port (Integer. (or (System/getenv "PORT") "3000"))]
+  (let [port (Integer. (or (System/getenv "PORT") "4040"))]
    (start-jetty! port)))
