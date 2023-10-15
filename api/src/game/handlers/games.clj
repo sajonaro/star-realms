@@ -1,9 +1,14 @@
 (ns game.handlers.games
   (:require
-   [clojure.data.json :as json]))
+   [game.handlers.helpers :as h]))
 
 
 (defn get-by-id [id]
-    {:status 200
-     :headers {"Content-Type" "text/json"}
-     :body (json/write-str {:game_id id})})
+  (h/run-query {:select [:*]
+                :from [:Game]
+                :where [:= :id id]}))
+
+
+(defn get-all []
+  (h/run-query {:select [:*]
+                :from [:Game]}))

@@ -12,7 +12,8 @@
   (context "/api" []
     (POST "/connect" [] login/connect-player-handler)
     (PUT  "/game/:game-id/join/:player-id" [game-id player-id] (login/join-game-handler game-id player-id))
-    (GET "/games/:id" [id] (games/get-by-id id))))
+    (GET "/games/:id" [id] (games/get-by-id id))
+    (GET "/games" [] (games/get-all))))
 
 
 ;;; disable CSRF protection 

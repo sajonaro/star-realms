@@ -1,19 +1,15 @@
 (ns game.handlers.login
   (:require
-   [clojure.data.json :as json]))
-
+   [game.handlers.helpers :as h]))
 
 (defn connect-player-handler [req]
   (let [player_name (-> req :params :name)]
-    {:status 200
-     :headers {"Content-Type" "text/json"}
-     :body (json/write-str {:player_name player_name
-                            :player_id (java.util.UUID/randomUUID)})}))
+    (h/json-response {:player_name player_name
+                      :player_id (java.util.UUID/randomUUID)})))
+
 (defn join-game-handler [game-id player-id]
-  {:status 200
-   :headers {"Content-Type" "text/json"}
-   :body (json/write-str {:game-id game-id
-                          :player-id player-id})})
+  (h/json-response {:game-id game-id
+                    :player-id player-id}))
 
 
 

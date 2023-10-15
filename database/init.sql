@@ -1,24 +1,15 @@
-/* CREATE DATABASE examples_db;
-   CREATE USER examples_app WITH PASSWORD 'password'; */
-
-
-DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS categories;
-
-
-CREATE TABLE categories (
-    id         serial primary key not null,
-    name   text not null
-);
-
-CREATE TABLE products (
-    id              serial primary key not null,
-    category_id     int not null references categories(id),
-    name   text not null
+CREATE TABLE "Game" (
+    "Id" SERIAL,
+    "CratedDate" timestamp with time zone NOT NULL,
+    "ClosedDate" timestamp with time zone NULL,
+    "Winner"     text NULL,
+    "Score"      int NULL,
+    CONSTRAINT "PK_Games" PRIMARY KEY ("Id")
 );
 
 
-GRANT SELECT,INSERT,UPDATE,DELETE  ON  categories          TO starrealms_app;
-GRANT SELECT,USAGE                 ON  categories_id_seq   TO starrealms_app;
-GRANT SELECT,INSERT,UPDATE,DELETE  ON  products            TO starrealms_app;
-GRANT SELECT,USAGE                 ON  products_id_seq     TO starrealms_app;
+CREATE TABLE "Player" (
+    "Id" uuid NOT NULL,
+    "Name" timestamp with time zone NOT NULL,
+    CONSTRAINT "PK_Player" PRIMARY KEY ("Id")
+);
