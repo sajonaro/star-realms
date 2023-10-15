@@ -2,23 +2,17 @@
 (:gen-class)
  (:require [ring.adapter.jetty :as ring]
            [ring.middleware.defaults :as ring-def]
-           [muuntaja.middleware :refer [wrap-format]]
-           [compojure.core :refer [GET POST defroutes ]]
-           [clojure.pprint :as pp]))
+           [compojure.core :refer [GET POST PUT defroutes context]]
+           [game.handlers.login :as login]
+           [game.handlers.games :as games]))
 
 (defonce server (atom nil))
 
 (defroutes routes
-  (POST "/connect/player_name" [:as req] 
-    {:status 200
-     :body {:hello (:name (:params req))}})
-  (GET "/:foo" [foo]
-    {:status 200
-     :body (str "you asked for " foo)})
-  (POST "/api" [:as req]
-    (pp/pprint (:body-params req))
-    {:status 200
-     :body {:hello 123}}))
+  (context "/api" []
+    (POST "/connect" [] login/connect-player-handler)
+    (PUT  "/game/:game-id/join/:player-id" [game-id player-id] (login/join-game-handler game-id player-id))
+    (GET "/games/:id" [id] (games/get-by-id id))))
 
 
 ;;; disable CSRF protection 
@@ -26,7 +20,6 @@
 
 
  (def app  (-> routes
-               (wrap-format)
                (ring-def/wrap-defaults config)))
 
 
