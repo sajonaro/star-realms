@@ -4,11 +4,11 @@
 
 
 (def db-config
-  {:dbtype (System/getenv "postgresql")
-   :dbname (System/getenv "POSTGRES_DB")
-   :host "POSTGRES_DB"
-   :user (System/getenv "POSTGRES_USER")
-   :password (System/getenv "POSTGRES_PASSWORD")})
+  {:dbtype "postgresql"
+   :dbname (System/getenv "DB_NAME")
+   :host (System/getenv "DB_SERVER")
+   :user (System/getenv "DB_USER")
+   :password (System/getenv "DB_PASSWORD")})
 
 (def db (jdbc/get-datasource db-config))
 
