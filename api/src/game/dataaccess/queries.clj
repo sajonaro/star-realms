@@ -2,10 +2,10 @@
 
 
 (def select-all-games {:select [:*]
-                       :from [:Games]})
+                       :from [:Game]})
 
 (defn select-game-by-id [id]
   {:select [:*]
-   :from [:Games]
+   :from [:Game]
    :where [:= :id id]})
 

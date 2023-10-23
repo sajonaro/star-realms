@@ -63,11 +63,8 @@ services:
       POSTGRES_USER: starrealms_app
       POSTGRES_PASSWORD: pwd
       PGDATA: /var/lib/postgresql/data/
-    command: ["postgres", "-c", "config_file=/etc/postgresql.conf"]    
     volumes:
       - data:/var/lib/postgresql/data/
-      - ./database/postgresql.conf:/etc/postgresql.conf
-      - ./database/pg_hba.conf:/etc/postgresql/pg_hba.conf
 
   adminer:
     image: adminer
