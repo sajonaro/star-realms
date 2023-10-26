@@ -1,0 +1,5 @@
+{:dbtype "postgresql"
+ :dbname "game_state"
+ :host "localhost"
+ :user "starrealms_app"
+ :password "pwd"}

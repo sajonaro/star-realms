@@ -1,0 +1,17 @@
+version: '3.5'
+services:
+  portainer:
+    image: portainer/portainer-ce
+    ports:
+      - "9000:9000"
+    volumes:
+      - /run/docker.sock:/var/run/docker.sock
+      - ~/tmp/portainer_data:/data
+    restart: always
+
+  watchtower:
+    image: containrrr/watchtower
+    command: --schedule "0 0 4 * * *"
+    volumes:
+      - /run/docker.sock:/var/run/docker.sock
+    restart: always    

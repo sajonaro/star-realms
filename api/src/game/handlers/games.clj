@@ -4,11 +4,14 @@
 
 
 (defn get-by-id [id]
-  (h/run-query {:select [:*]
-                :from [:Game]
+  (h/run-query-get-json-response {:select [:*]
+                :from [:game]
                 :where [:= :id id]}))
 
-
+#break
 (defn get-all []
-  (h/run-query {:select [:*]
-                :from [:Game]}))
+  (h/run-query-get-json-response {:select [:*]
+                :from [:game]}))
+
+
+(get-all)

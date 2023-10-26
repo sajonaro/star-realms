@@ -31,3 +31,7 @@
 (defn -main [] 
   (let [port (Integer. (or (System/getenv "PORT") "4040"))]
    (start-jetty! port)))
+
+
+(-main)
+

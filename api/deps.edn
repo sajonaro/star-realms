@@ -8,7 +8,8 @@
         com.fzakaria/slf4j-timbre {:mvn/version "0.4.0"}
         org.clojure/data.json {:mvn/version "2.4.0"}
         com.github.seancorfield/honeysql {:mvn/version "2.4.962"}
-        seancorfield/next.jdbc {:mvn/version "1.2.659"}
+        hikari-cp/hikari-cp {:mvn/version "3.0.1"}
+        org.clojure/java.jdbc {:mvn/version "0.7.12"}
         org.postgresql/postgresql {:mvn/version "42.1.4"}}
 
 
