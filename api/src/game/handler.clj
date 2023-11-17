@@ -30,8 +30,5 @@
 
 (defn -main [] 
   (let [port (Integer. (or (System/getenv "PORT") "4040"))]
-   (start-jetty! port)))
-
-
-(-main)
-
+   (start-jetty! port) 
+   (println (str "game api is running on port: " port))))

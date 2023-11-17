@@ -6,7 +6,7 @@
 (def local (edn/read-string (slurp "local_vars.edn")))
 
 (def datasource-options
-  (if (some? (System/getenv "DB_NAME"))
+  (if (some? (System/getenv "CONTAINER_DEPLOYED"))
     {:auto-commit        true
     :read-only          false
     :connection-timeout 30000
@@ -44,7 +44,6 @@
 (defonce datasource
   (delay (make-datasource datasource-options)))
 
-(def conn {:datasource @datasource})
-
 (defn run-query [sql-query]
-    (jdbc/query conn sql-query))
+  (let [conn {:datasource @datasource}]
+    (jdbc/query conn sql-query)))

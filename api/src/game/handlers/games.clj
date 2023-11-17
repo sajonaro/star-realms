@@ -8,10 +8,7 @@
                 :from [:game]
                 :where [:= :id id]}))
 
-#break
 (defn get-all []
   (h/run-query-get-json-response {:select [:*]
                 :from [:game]}))
 
-
-(get-all)

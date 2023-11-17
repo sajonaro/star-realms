@@ -1,6 +1,8 @@
 #Build stage
 FROM clojure:temurin-17-alpine AS stage--builder
 
+ENV CONTAINER_DEPLOYED "yes"
+
 #building  app's jar
 RUN mkdir /build
 
